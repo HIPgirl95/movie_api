@@ -6,7 +6,9 @@
   "version": "1.0.0",
   "description": "My Movie API",
   "main": "server.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^9.7.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

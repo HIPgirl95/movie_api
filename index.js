@@ -1,7 +1,5 @@
 const express = require("express"),
-  morgan = require("morgan"),
-  fs = require("fs"),
-  path = require("path");
+  morgan = require("morgan");
 const app = express();
 
 let Movies = [

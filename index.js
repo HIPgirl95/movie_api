@@ -1,5 +1,7 @@
 const express = require("express"),
-  morgan = require("morgan");
+  morgan = require("morgan"),
+  fs = require("fs"),
+  path = require("path");
 const app = express();
 
 let Movies = [
@@ -55,15 +57,20 @@ let Movies = [
   },
 ];
 
-app.use(morgan("common"));
+var accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
+  flags: "a",
+});
+app.use(morgan("common", { stream: accessLogStream }));
 
 app.get("/movies", (req, res) => {
   res.json(Movies);
 });
 
 app.get("/", (req, res) => {
-  res.send("There is nothing here!.");
+  res.send("There is nothing here!");
 });
+
+app.use(express.static("public"));
 
 app.listen(8080, () => {
   console.log("Your app is listening on port 8080.");

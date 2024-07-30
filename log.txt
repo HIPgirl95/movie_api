@@ -10,3 +10,7 @@ Timestamp: Mon Jul 22 2024 17:22:17 GMT-0400 (Eastern Daylight Time)
 URL: /favicon.ico
 Timestamp: Mon Jul 22 2024 17:22:17 GMT-0400 (Eastern Daylight Time)
 
+::1 - - [30/Jul/2024:19:06:21 +0000] "GET /movies HTTP/1.1" 304 -
+::1 - - [30/Jul/2024:19:06:40 +0000] "GET / HTTP/1.1" 200 22
+::1 - - [30/Jul/2024:19:07:19 +0000] "GET /movies HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+::1 - - [30/Jul/2024:19:07:39 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"

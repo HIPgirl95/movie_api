@@ -69,6 +69,10 @@ app.get("/movies/:title", (req, res) => {
   );
 });
 
+app.get("/movies/genres/:genre", (req, res) => {
+  res.send("Information about " + req.params.genre + "!");
+});
+
 app.get("/", (req, res) => {
   res.send("There is nothing here!");
 });

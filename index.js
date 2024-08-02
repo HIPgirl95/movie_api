@@ -207,7 +207,7 @@ app.delete("/users/unregister/:username", (req, res) => {
     return person.username === req.params.username;
   });
   if (!user) {
-    res.status(404).send(req.params.username + "does not have an account.");
+    res.status(404).send(req.params.username + " does not have an account.");
   } else {
     users = users.filter((obj) => {
       return obj.username !== req.params.username;

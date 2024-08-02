@@ -6,22 +6,78 @@
     <title>Movie API Documentation</title>
   </head>
   <body>
-    <p>Return all movies: get '/movies'</p>
-    <p>Return movie data: get '/movies/:title'</p>
-    <p>Return genre data: get '/movies/genres/:genre'</p>
-    <p>Return director data: get '/directors/:name'</p>
+    <h3>Return all movies: get '/movies'</h3>
     <p>
-      Allow user registration: post '/users/register/:username' request json
+      This endpoint uses GET to return a json with all the movies in this API
+      and some data about them. <br />
+      There are no parameters in the url, and no data expected in the request
+      body.
     </p>
-    <p>Allow user info update: put '/users/:username/:newUsername'</p>
+    <h3>Return movie data: get '/movies/:title'</h3>
     <p>
+      This endpoint uses GET to return a json with data about a specific movie.
+      <br />
+      It requires the name of the requested movie in the url, but there is no
+      expected data in the request body.
+    </p>
+    <h3>Return genre data: get '/movies/genres/:genre'</h3>
+    <p>
+      This endpoint uses GET to return text detailing specifics about the
+      requested genre. <br />
+      It requires a genre type in the url, but there is no expected data in the
+      request body.
+    </p>
+    <h3>Return director data: get '/directors/:name'</h3>
+    <p>
+      This endpoint uses GET to return a json with data about a specific
+      director. <br />
+      The URL requires the director's name, but there is no expected data in the
+      request body.
+    </p>
+    <h3>
+      Allow user registration: post '/users/register/:username' request json
+    </h3>
+    <p>
+      This endpoint uses POST to add a user. It will verify that this has
+      happened by returning the username and an id. <br />
+      The URL requires a username. This username must also be present in a json
+      object.
+    </p>
+    <p>{ "name": "HannahHogan", "password": "Pa55w0rd" }</p>
+    <h3>Allow user info update: put '/users/:username/:newUsername'</h3>
+    <p>
+      This endpoint uses PUT to allow users to update their usernames. It will
+      verify that this has happened by returning confirmation text.<br />The URL
+      Requires both the old username and the new username, but there is no
+      expected data in the request body.
+    </p>
+    <h3>
       Allow users to add favorite movie: put
       '/users/:username/favorites/:title/add
-    </p>
+    </h3>
     <p>
+      This endpoint uses PUT to add a movie to a user's favorites list. It will
+      verify that this has happened by returning confirmation text.<br />
+      The URL requires both the user's username and the title of the movie, but
+      there is no expected data from the request body.
+    </p>
+    <h3>
       Allow users to remove favorite movie: delete
       '/users/:username/favorites/:title/remove'
+    </h3>
+    <p>
+      This endpoint uses DELETE to remove movies from their favorites list. It
+      will verify that this has happened by returning confirmation text.
+      <br />
+      The URL requires both the user's username and the title of the movie, but
+      there is no expected data from the request body.
     </p>
-    <p>Allow users to deregester: delete '/users/:username/delete'</p>
+    <h3>Allow users to deregester: delete '/users/:username/delete'</h3>
+    <p>
+      This endpoint uses DELETE to deregister a user. It will verify that this
+      has happened by returning confirmation text.<br />
+      The URL requires the user's username, but there is no expected data from
+      the request body.
+    </p>
   </body>
 </html>

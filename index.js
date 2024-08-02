@@ -105,7 +105,12 @@ let directors = [
   },
 ];
 
-let users = [];
+let users = [
+  {
+    username: "HannahHogan",
+    password: "Pa55w0rd",
+  },
+];
 
 app.use(morgan("common"));
 
@@ -143,6 +148,19 @@ app.post("/users/register/:username", (req, res) => {
     newUser.id = uuid.v4();
     users.push(newUser);
     res.status(201).send(newUser);
+  }
+});
+
+app.put("/users/:username/:newUsername", (req, res) => {
+  let username = users.find((person) => {
+    return person.username === req.params.username;
+  });
+  if (username) {
+    let newUsername = req.params.newUsername;
+    username = newUsername;
+    res.status(201).send("New Username is " + username);
+  } else {
+    res.status(404).send("User " + req.params.username + " was not found");
   }
 });
 

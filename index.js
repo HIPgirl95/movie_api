@@ -114,10 +114,12 @@ let users = [
 
 app.use(morgan("common"));
 
+// GET a list of movies
 app.get("/movies", (req, res) => {
   res.json(Movies);
 });
 
+// GET details about a movie
 app.get("/movies/:title", (req, res) => {
   res.json(
     Movies.find((film) => {
@@ -126,10 +128,12 @@ app.get("/movies/:title", (req, res) => {
   );
 });
 
+// GET info about genres
 app.get("/movies/genres/:genre", (req, res) => {
   res.send("Information about " + req.params.genre + "!");
 });
 
+// GET info about directors
 app.get("/directors/:name", (req, res) => {
   res.json(
     directors.find((person) => {
@@ -138,6 +142,7 @@ app.get("/directors/:name", (req, res) => {
   );
 });
 
+// POST new user
 app.post("/users/register/:username", (req, res) => {
   let newUser = req.body;
 
@@ -151,6 +156,7 @@ app.post("/users/register/:username", (req, res) => {
   }
 });
 
+// PUT to update username
 app.put("/users/:username/:newUsername", (req, res) => {
   let username = users.find((person) => {
     return person.username === req.params.username;

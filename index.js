@@ -1,6 +1,9 @@
 const express = require("express"),
-  morgan = require("morgan");
+  morgan = require("morgan"),
+  uuid = require("uuid"),
+  bodyParser = require("body-parser");
 const app = express();
+app.use(bodyParser.json());
 
 let Movies = [
   {
@@ -102,6 +105,8 @@ let directors = [
   },
 ];
 
+let users = [];
+
 app.use(morgan("common"));
 
 app.get("/movies", (req, res) => {
@@ -126,6 +131,19 @@ app.get("/directors/:name", (req, res) => {
       return person.name === req.params.name;
     })
   );
+});
+
+app.post("/users/register/:username", (req, res) => {
+  let newUser = req.body;
+
+  if (!newUser.name) {
+    const message = "Missing name in request body";
+    res.status(400).send(message);
+  } else {
+    newUser.id = uuid.v4();
+    users.push(newUser);
+    res.status(201).send(newUser);
+  }
 });
 
 app.get("/", (req, res) => {

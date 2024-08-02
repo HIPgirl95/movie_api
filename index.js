@@ -202,6 +202,20 @@ app.delete("/users/:username/favorites/:title/remove", (req, res) => {
   }
 });
 
+app.delete("/users/unregister/:username", (req, res) => {
+  let user = users.find((person) => {
+    return person.username === req.params.username;
+  });
+  if (!user) {
+    res.status(404).send(req.params.username + "does not have an account.");
+  } else {
+    users = users.filter((obj) => {
+      return obj.username !== req.params.username;
+    });
+    res.status(201).send("User " + req.params.username + " was deleted.");
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("There is nothing here!");
 });

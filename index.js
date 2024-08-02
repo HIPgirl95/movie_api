@@ -170,6 +170,7 @@ app.put("/users/:username/:newUsername", (req, res) => {
   }
 });
 
+// PUT movie on favorites list
 app.put("/users/:username/favorites/:title/add", (req, res) => {
   let user = users.find((person) => {
     return person.username === req.params.username;
@@ -182,6 +183,22 @@ app.put("/users/:username/favorites/:title/add", (req, res) => {
     res
       .status(200)
       .send(title + " has been added to " + user.username + "'s favorites!");
+  }
+});
+
+app.delete("/users/:username/favorites/:title/remove", (req, res) => {
+  let user = users.find((person) => {
+    return person.username === req.params.username;
+  });
+  let title = req.params.title;
+  if (!user) {
+    res.status(404).send("User " + user.username + " does not exist.");
+  } else if (!title) {
+    res.status(404).send(title + " cannot be found.");
+  } else {
+    res
+      .status(200)
+      .send(title + " has been removed from " + user.username + "'s favorites");
   }
 });
 

@@ -6,10 +6,22 @@
     <title>Movie API Documentation</title>
   </head>
   <body>
+    <p>Return all movies: get '/movies'</p>
+    <p>Return movie data: get '/movies/:title'</p>
+    <p>Return genre data: get '/movies/genre'</p>
+    <p>Return director data: get '/movies/:name'</p>
     <p>
-      This API will allow you to organize movie information by directors, actos,
-      and some other things. You will also be able to sign in and make a list of
-      your favorite movies!
+      Allow user registration: post '/users/register/:username' request json
     </p>
+    <p>Allow user info update: put '/users/:username/:newUsername'</p>
+    <p>
+      Allow users to add favorite movie: put
+      '/users/:username/favorites/:title/add
+    </p>
+    <p>
+      Allow users to remove favorite movie: delete
+      '/users/:username/favorites/:title/remove'
+    </p>
+    <p>Allow users to deregester: delete '/users/:username/delete'</p>
   </body>
 </html>

@@ -61,6 +61,14 @@ app.get("/movies", (req, res) => {
   res.json(Movies);
 });
 
+app.get("/movies/:title", (req, res) => {
+  res.json(
+    Movies.find((film) => {
+      return film.title === req.params.title;
+    })
+  );
+});
+
 app.get("/", (req, res) => {
   res.send("There is nothing here!");
 });

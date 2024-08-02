@@ -170,6 +170,21 @@ app.put("/users/:username/:newUsername", (req, res) => {
   }
 });
 
+app.put("/users/:username/favorites/:title/add", (req, res) => {
+  let user = users.find((person) => {
+    return person.username === req.params.username;
+  });
+  let title = req.params.title;
+
+  if (!user || !title) {
+    res.status(404).send("User or movie not specified");
+  } else {
+    res
+      .status(200)
+      .send(title + " has been added to " + user.username + "'s favorites!");
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("There is nothing here!");
 });

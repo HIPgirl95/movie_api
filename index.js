@@ -9,7 +9,6 @@ const express = require("express"),
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect("mongodb://localhost:27017/test", {
   useNewUrlParser: true,
@@ -154,48 +153,76 @@ app.get("/directors/:name", (req, res) => {
 });
 
 // POST new user
-app.post("/users/register/:username", (req, res) => {
-  let newUser = req.body;
+/* Expected JSON in this format {
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}*/
+app.post("/users", async (req, res) => {
+  await Users.findOne({ Username: req.body.Username }).then((user) => {
+    if (user) {
+      return res.status(400).send(req.body.Username + " already exists.");
+    } else {
+      Users.create({
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
+      })
+        .then((user) => {
+          res.status(201).json(user);
+        })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send("Error: " + error);
+        });
+    }
+  });
+});
 
-  if (!newUser.name) {
-    const message = "Missing name in request body";
-    res.status(400).send(message);
-  } else {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
-  }
+// GET all users
+app.get("/users", async (req, res) => {
+  await Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 // PUT to update username
-app.put("/users/:username/:newUsername", (req, res) => {
-  let username = users.find((person) => {
-    return person.username === req.params.username;
-  });
-  if (username) {
-    let newUsername = req.params.newUsername;
-    username = newUsername;
-    res.status(201).send("New Username is " + username);
-  } else {
-    res.status(404).send("User " + req.params.username + " was not found");
-  }
-});
+// app.put("/users/:username/:newUsername", (req, res) => {
+//   let username = users.find((person) => {
+//     return person.username === req.params.username;
+//   });
+//   if (username) {
+//     let newUsername = req.params.newUsername;
+//     username = newUsername;
+//     res.status(201).send("New Username is " + username);
+//   } else {
+//     res.status(404).send("User " + req.params.username + " was not found");
+//   }
+// });
 
-// PUT movie on favorites list
-app.put("/users/:username/favorites/:title/add", (req, res) => {
-  let user = users.find((person) => {
-    return person.username === req.params.username;
-  });
-  let title = req.params.title;
+// // PUT movie on favorites list
+// app.put("/users/:username/favorites/:title/add", (req, res) => {
+//   let user = users.find((person) => {
+//     return person.username === req.params.username;
+//   });
+//   let title = req.params.title;
 
-  if (!user || !title) {
-    res.status(404).send("User or movie not specified");
-  } else {
-    res
-      .status(200)
-      .send(title + " has been added to " + user.username + "'s favorites!");
-  }
-});
+//   if (!user || !title) {
+//     res.status(404).send("User or movie not specified");
+//   } else {
+//     res
+//       .status(200)
+//       .send(title + " has been added to " + user.username + "'s favorites!");
+//   }
+// });
 
 app.delete("/users/:username/favorites/:title/remove", (req, res) => {
   let user = users.find((person) => {

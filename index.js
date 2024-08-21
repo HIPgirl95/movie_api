@@ -118,8 +118,15 @@ let directors = [
 app.use(morgan("common"));
 
 // GET a list of movies
-app.get("/movies", (req, res) => {
-  res.json(Movies);
+app.get("/movies", async (req, res) => {
+  await Movies.find()
+    .then((movie) => {
+      res.status(201).json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 // GET details about a movie
@@ -251,7 +258,7 @@ app.post("/users/:Username/movies/:MovieID", async (req, res) => {
 
 //DELETE a user by username
 app.delete("/users/:Username", async (req, res) => {
-  await Users.findOneAndRemove({ Username: req.params.Username })
+  await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
         res.status(400).send(req.params.Username + " was not found.");

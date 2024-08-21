@@ -20,17 +20,17 @@
       It requires the name of the requested movie in the url, but there is no
       expected data in the request body.
     </p>
-    <h3>Return genre data: get '/genres/:genre'</h3>
+    <h3>Return movies by genre: get '/movies/genres/:genre'</h3>
     <p>
-      This endpoint uses GET to return text detailing specifics about the
-      requested genre. <br />
+      This endpoint uses GET to return a list of all movies with a certain
+      genre. <br />
       It requires a genre type in the url, but there is no expected data in the
       request body.
     </p>
-    <h3>Return director data: get '/directors/:name'</h3>
+    <h3>Return movies by director: get '/movies/directors/:name'</h3>
     <p>
-      This endpoint uses GET to return a json with data about a specific
-      director. <br />
+      This endpoint uses GET to return all the movies with a specified director.
+      <br />
       The URL requires the director's name, but there is no expected data in the
       request body.
     </p>

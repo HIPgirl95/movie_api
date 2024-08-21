@@ -29,20 +29,23 @@ app.get("/movies", async (req, res) => {
     });
 });
 
-// GET details about a movie
-app.get("/movies/:title", (req, res) => {
-  res.json(
-    Movies.find((film) => {
-      return film.title === req.params.title;
+// GET details about a movie by title
+app.get("/movies/:Title", async (req, res) => {
+  await Movies.find({ Title: req.params.Title })
+    .then((movie) => {
+      res.status(201).json(movie);
     })
-  );
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-// GET info about genres
+// GET a list of movies with a specified genre
 app.get("/movies/genres/:genre", async (req, res) => {
   await Movies.find({ "Genre.Name": req.params.genre })
-    .then((genre) => {
-      res.status(201).json(genre);
+    .then((movie) => {
+      res.status(201).json(movie);
     })
     .catch((err) => {
       console.error(err);
@@ -51,12 +54,15 @@ app.get("/movies/genres/:genre", async (req, res) => {
 });
 
 // GET info about directors
-app.get("/directors/:name", (req, res) => {
-  res.json(
-    directors.find((person) => {
-      return person.name === req.params.name;
+app.get("/movies/directors/:Name", async (req, res) => {
+  await Movies.find({ "Director.Name": req.params.Name })
+    .then((movie) => {
+      res.status(201).json(movie);
     })
-  );
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 // POST new user

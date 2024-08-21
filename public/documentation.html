@@ -34,26 +34,30 @@
       The URL requires the director's name, but there is no expected data in the
       request body.
     </p>
-    <h3>
-      Allow user registration: post '/users/register/:username' request json
-    </h3>
+    <h3>Allow user registration: post '/users' request json</h3>
     <p>
       This endpoint uses POST to add a user. It will verify that this has
-      happened by returning the username and an id. <br />
-      The URL requires a username. This username must also be present in a json
-      object.
+      happened by returning the User json with an id. <br />
+      A json object is expected in the following format: Expected JSON in this
+      format:
     </p>
-    <p>{ "name": "HannahHogan", "password": "Pa55w0rd" }</p>
-    <h3>Allow user info update: put '/users/:username/:newUsername'</h3>
     <p>
-      This endpoint uses PUT to allow users to update their usernames. It will
-      verify that this has happened by returning confirmation text.<br />The URL
-      Requires both the old username and the new username, but there is no
-      expected data in the request body.
+      { Username: String, (required) Password: String, (required) Email: String,
+      (required) Birthday: Date, (required) }
+    </p>
+    <h3>Allow user info update: put '/users/:username'</h3>
+    <p>
+      This endpoint uses PUT to allow users to update their user information. It
+      will verify that this has happened by returning the updated json.<br />The
+      URL Requires the current username, and the request body expects a json in
+      the following format (with the new information):
+    </p>
+    <p>
+      { Username: String, (required) Password: String, (required) Email: String,
+      (required) Birthday: Date, (required) }
     </p>
     <h3>
-      Allow users to add favorite movie: put
-      '/users/:username/favorites/:title/add
+      Allow users to add favorite movie: put '/users/:username/favorites/:title
     </h3>
     <p>
       This endpoint uses PUT to add a movie to a user's favorites list. It will
@@ -72,7 +76,7 @@
       The URL requires both the user's username and the title of the movie, but
       there is no expected data from the request body.
     </p>
-    <h3>Allow users to deregester: delete '/users/:username/delete'</h3>
+    <h3>Allow users to deregester: delete '/users/:username'</h3>
     <p>
       This endpoint uses DELETE to deregister a user. It will verify that this
       has happened by returning confirmation text.<br />

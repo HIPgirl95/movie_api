@@ -57,21 +57,23 @@
       (required) Birthday: Date, (required) }
     </p>
     <h3>
-      Allow users to add favorite movie: put '/users/:username/favorites/:title
+      Allow users to add favorite movie: POST '/users/:username/movies/:movieID
     </h3>
     <p>
-      This endpoint uses PUT to add a movie to a user's favorites list. It will
-      verify that this has happened by returning confirmation text.<br />
-      The URL requires both the user's username and the title of the movie, but
+      This endpoint uses POST to add a movie to a user's favorites list. It will
+      verify that this has happened by returning the user json with the added
+      movie in the FavMovies array.<br />
+      The URL requires both the user's username and the ID of the movie, but
       there is no expected data from the request body.
     </p>
     <h3>
       Allow users to remove favorite movie: delete
-      '/users/:username/favorites/:title/remove'
+      '/users/:username/movie/:movieID/'
     </h3>
     <p>
-      This endpoint uses DELETE to remove movies from their favorites list. It
-      will verify that this has happened by returning confirmation text.
+      This endpoint uses DELETE to remove movies from a user's favorites list.
+      It will verify that this has happened by returning the user json with the
+      movie removed from the FavMovies array.
       <br />
       The URL requires both the user's username and the title of the movie, but
       there is no expected data from the request body.

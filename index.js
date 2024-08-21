@@ -142,11 +142,29 @@ app.put("/users/:Username", async (req, res) => {
 });
 
 //POST a movie to a user's favorites list
-app.post("/users/:Username/movies/:MovieID", async (req, res) => {
+app.post("/users/:Username/movies/:movieID", async (req, res) => {
   await Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
-      $push: { FavMovies: req.params.MovieID },
+      $push: { FavMovies: req.params.movieID },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+//DELETE a movie from a user's favorites list
+app.delete("/users/:Username/movies/:movieID", async (req, res) => {
+  await Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $pull: { FavMovies: req.params.movieID },
     },
     { new: true }
   )

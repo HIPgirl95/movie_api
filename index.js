@@ -146,7 +146,8 @@ app.get("/directors/:name", (req, res) => {
 });
 
 // POST new user
-/* Expected JSON in this format {
+/* Expected JSON in this format: 
+{
   ID: Integer,
   Username: String,
   Password: String,
@@ -192,6 +193,55 @@ app.get("/users/:Username", async (req, res) => {
   await Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+//PUT to update a user's info, by username
+/* Expected json in this format:
+{
+Username: String, (required)
+Password: String, (required)
+Email: String, (required)
+Birthday: Date
+} */
+
+app.put("/users/:Username", async (req, res) => {
+  await Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $set: {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+//POST a movie to a user's favorites list
+app.post("/users/:Username/movies/:MovieID", async (req, res) => {
+  await Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $push: { FavMovies: req.params.MovieID },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
     })
     .catch((err) => {
       console.error(err);

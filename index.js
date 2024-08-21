@@ -249,6 +249,22 @@ app.post("/users/:Username/movies/:MovieID", async (req, res) => {
     });
 });
 
+//DELETE a user by username
+app.delete("/users/:Username", async (req, res) => {
+  await Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + " was not found.");
+      } else {
+        res.status(200).send(req.params.Username + " was deleted.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
 // PUT to update username
 // app.put("/users/:username/:newUsername", (req, res) => {
 //   let username = users.find((person) => {
@@ -279,35 +295,35 @@ app.post("/users/:Username/movies/:MovieID", async (req, res) => {
 //   }
 // });
 
-app.delete("/users/:username/favorites/:title/remove", (req, res) => {
-  let user = users.find((person) => {
-    return person.username === req.params.username;
-  });
-  let title = req.params.title;
-  if (!user) {
-    res.status(404).send("User " + user.username + " does not exist.");
-  } else if (!title) {
-    res.status(404).send(title + " cannot be found.");
-  } else {
-    res
-      .status(200)
-      .send(title + " has been removed from " + user.username + "'s favorites");
-  }
-});
+// app.delete("/users/:username/favorites/:title/remove", (req, res) => {
+//   let user = users.find((person) => {
+//     return person.username === req.params.username;
+//   });
+//   let title = req.params.title;
+//   if (!user) {
+//     res.status(404).send("User " + user.username + " does not exist.");
+//   } else if (!title) {
+//     res.status(404).send(title + " cannot be found.");
+//   } else {
+//     res
+//       .status(200)
+//       .send(title + " has been removed from " + user.username + "'s favorites");
+//   }
+// });
 
-app.delete("/users/unregister/:username", (req, res) => {
-  let user = users.find((person) => {
-    return person.username === req.params.username;
-  });
-  if (!user) {
-    res.status(404).send(req.params.username + " does not have an account.");
-  } else {
-    users = users.filter((obj) => {
-      return obj.username !== req.params.username;
-    });
-    res.status(201).send("User " + req.params.username + " was deleted.");
-  }
-});
+// app.delete("/users/unregister/:username", (req, res) => {
+//   let user = users.find((person) => {
+//     return person.username === req.params.username;
+//   });
+//   if (!user) {
+//     res.status(404).send(req.params.username + " does not have an account.");
+//   } else {
+//     users = users.filter((obj) => {
+//       return obj.username !== req.params.username;
+//     });
+//     res.status(201).send("User " + req.params.username + " was deleted.");
+//   }
+// });
 
 app.get("/", (req, res) => {
   res.send("There is nothing here!");

@@ -11,28 +11,61 @@
       This endpoint uses GET to return a json with all the movies in this API
       and some data about them. <br />
       There are no parameters in the url, and no data expected in the request
-      body.
+      body. <br />
+      <br />
+      Example response: { "Genre": { "Name": "Fantasy", "Description": "A genre
+      often set in an imaginary universt without any locations, events, or
+      people from the real world." }, "Director": { "Name": "Steven Spielberg",
+      "Bio": "Steven Allan Spielberg is an American filmmaker and the most
+      successful director in film history." }, "Actors": [], "_id":
+      "66b90f36cd0e090e39228fb5", "Title": "Hook", "Description": "When his
+      young children are abducted by his old nemesis, Captain Hook, middle-aged
+      lawyer Peter Banning must return to his magical origins as Peter Pan.",
+      "LeadActor": "Robin Williams" },
     </p>
     <h3>Return movie data: get '/movies/:title'</h3>
     <p>
       This endpoint uses GET to return a json with data about a specific movie.
       <br />
       It requires the name of the requested movie in the url, but there is no
-      expected data in the request body.
+      expected data in the request body. <br /><br />
+      Example response: { "Genre": { "Name": "Fantasy", "Description": "A genre
+      often set in an imaginary universt without any locations, events, or
+      people from the real world." }, "Director": { "Name": "Steven Spielberg",
+      "Bio": "Steven Allan Spielberg is an American filmmaker and the most
+      successful director in film history." }, "Actors": [], "_id":
+      "66b90f36cd0e090e39228fb5", "Title": "Hook", "Description": "When his
+      young children are abducted by his old nemesis, Captain Hook, middle-aged
+      lawyer Peter Banning must return to his magical origins as Peter Pan.",
+      "LeadActor": "Robin Williams" }
     </p>
-    <h3>Return movies by genre: get '/movies/genres/:genre'</h3>
+    <h3>Return details about a genre: get '/genres/:genre'</h3>
     <p>
       This endpoint uses GET to return a list of all movies with a certain
       genre. <br />
       It requires a genre type in the url, but there is no expected data in the
-      request body.
+      request body. <br /><br />
+      Example Response: { "_id": "66c7838a9e7a65be8d228fb6", "Name":
+      "Adventure", "Description": "Adventure stories are a genre that involve
+      protagonists going in epic journeys. These journeys are most often
+      geographical, but may also include emotional and personal journeys and
+      growth. The adventure, the goal of the quest at hand, must take center
+      stage in an adventure story." }
     </p>
-    <h3>Return movies by director: get '/movies/directors/:name'</h3>
+    <h3>Return details about a director: get '/directors/:name'</h3>
     <p>
       This endpoint uses GET to return all the movies with a specified director.
       <br />
       The URL requires the director's name, but there is no expected data in the
-      request body.
+      request body. <br /><br />
+      Example response: {"_id": "66c788063e6f4ea514228fb8", "Name": "Rob
+      Reiner", "Bio": "Robert Reiner is an American actor, film director,
+      screenwriter, and producer. He made his directorial film debut with heavy
+      metal mockumentary 'This is Spinal Tap'. He then earned acclaim by
+      directing romantic comedy 'The Sure Thing', coming of age drama 'Stand by
+      Me', and fantasy adventure 'The Princess Bride'. He has earned nominations
+      for four Golden Globe Awards for Best Director, and for three Directors
+      Guild of America Awards." }
     </p>
     <h3>Allow user registration: post '/users' request json</h3>
     <p>
@@ -42,8 +75,13 @@
       format:
     </p>
     <p>
-      { Username: String, (required) Password: String, (required) Email: String,
-      (required) Birthday: Date, (required) }
+      { "Username": "Hannah", "Password": "String", "Email":
+      "hannah@website.com", "Birthday": "1991-01-01" }
+    </p>
+    <p>
+      Expected Response: { "Username": "Hannah", "Password": "String", "Email":
+      "hannah@website.com", "Birthday": "1991-01-01T00:00:00.000Z", "FavMovies":
+      [], "_id": "66c78a634935a7632b286ae3", "__v": 0 }
     </p>
     <h3>Allow user info update: put '/users/:username'</h3>
     <p>
@@ -53,8 +91,13 @@
       the following format (with the new information):
     </p>
     <p>
-      { Username: String, (required) Password: String, (required) Email: String,
-      (required) Birthday: Date, (required) }
+      { "Username": "Hannah", "Password": "NewPassword", "Email":
+      "hannah@website.org", "Birthday": "1992-02-02"}
+    </p>
+    <p>
+      Expected Response: { "_id": "66c63df7fc235a7f1462c1f5", "Username":
+      "Hannah", "Password": "NewPassword", "Email": "hannah@website.org",
+      "Birthday": "1992-02-02T00:00:00.000Z", "FavMovies": [], "__v": 0 }
     </p>
     <h3>
       Allow users to add favorite movie: POST '/users/:username/movies/:movieID
@@ -65,6 +108,12 @@
       movie in the FavMovies array.<br />
       The URL requires both the user's username and the ID of the movie, but
       there is no expected data from the request body.
+    </p>
+    <p>
+      Expected Response: { "_id": "66c63df7fc235a7f1462c1f5", "Username":
+      "Hannah", "Password": "NewPassword", "Email": "hannah@website.org",
+      "Birthday": "1992-02-02T00:00:00.000Z", "FavMovies": [
+      "66b90f36cd0e090e39228fb5" ], "__v": 0 }
     </p>
     <h3>
       Allow users to remove favorite movie: delete
@@ -78,6 +127,11 @@
       The URL requires both the user's username and the title of the movie, but
       there is no expected data from the request body.
     </p>
+    <p>
+      Expected Response: { "_id": "66c63df7fc235a7f1462c1f5", "Username":
+      "Hannah", "Password": "NewPassword", "Email": "hannah@website.org",
+      "Birthday": "1992-02-02T00:00:00.000Z", "FavMovies": [], "__v": 0 }
+    </p>
     <h3>Allow users to deregester: delete '/users/:username'</h3>
     <p>
       This endpoint uses DELETE to deregister a user. It will verify that this
@@ -85,5 +139,6 @@
       The URL requires the user's username, but there is no expected data from
       the request body.
     </p>
+    <p>Expected Response: Either "User was deleted" or "User was not found"</p>
   </body>
 </html>

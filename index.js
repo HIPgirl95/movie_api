@@ -5,7 +5,9 @@ const express = require("express"),
   mongoose = require("mongoose"),
   Models = require("./models.js"),
   Movies = Models.Movie,
-  Users = Models.User;
+  Users = Models.User,
+  Genres = Models.Genre,
+  Directors = Models.Director;
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
@@ -41,11 +43,11 @@ app.get("/movies/:Title", async (req, res) => {
     });
 });
 
-// GET a list of movies with a specified genre
-app.get("/movies/genres/:genre", async (req, res) => {
-  await Movies.find({ "Genre.Name": req.params.genre })
-    .then((movie) => {
-      res.status(201).json(movie);
+// GET info about a specified genre
+app.get("/genres/:genre", async (req, res) => {
+  await Genres.find({ Name: req.params.genre })
+    .then((genre) => {
+      res.status(201).json(genre);
     })
     .catch((err) => {
       console.error(err);
@@ -54,10 +56,10 @@ app.get("/movies/genres/:genre", async (req, res) => {
 });
 
 // GET info about directors
-app.get("/movies/directors/:Name", async (req, res) => {
-  await Movies.find({ "Director.Name": req.params.Name })
-    .then((movie) => {
-      res.status(201).json(movie);
+app.get("/directors/:Name", async (req, res) => {
+  await Directors.find({ Name: req.params.Name })
+    .then((director) => {
+      res.status(201).json(director);
     })
     .catch((err) => {
       console.error(err);

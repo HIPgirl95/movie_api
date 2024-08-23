@@ -5,9 +5,9 @@ const express = require("express"),
   mongoose = require("mongoose"),
   Models = require("./models.js"),
   Movies = Models.Movie,
-  Users = Models.User,
-  Genres = Models.Genre,
-  Directors = Models.Director;
+  Users = Models.User;
+// Genres = Models.Genre,
+// Directors = Models.Director;
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
@@ -45,26 +45,22 @@ app.get("/movies/:Title", async (req, res) => {
 
 // GET info about a specified genre
 app.get("/genres/:genre", async (req, res) => {
-  await Genres.find({ Name: req.params.genre })
-    .then((genre) => {
-      res.status(201).json(genre);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
+  const movie = await Movies.findOne({ "Genre.Name": req.params.genre });
+  if (movie) {
+    res.status(200).json(movie.Genre);
+  } else {
+    res.status(404).send("No genre found.");
+  }
 });
 
 // GET info about directors
 app.get("/directors/:Name", async (req, res) => {
-  await Directors.find({ Name: req.params.Name })
-    .then((director) => {
-      res.status(201).json(director);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
+  const movie = await Movies.findOne({ "Director.Name": req.params.Name });
+  if (movie) {
+    res.status(200).json(movie.Director);
+  } else {
+    res.status(404).send("No Director found.");
+  }
 });
 
 // POST new user

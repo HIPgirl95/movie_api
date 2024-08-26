@@ -13,15 +13,16 @@
       There are no parameters in the url, and no data expected in the request
       body. <br />
       <br />
-      Example response: { "Genre": { "Name": "Fantasy", "Description": "A genre
+      Example response: [{ "Genre": { "Name": "Fantasy", "Description": "A genre
       often set in an imaginary universt without any locations, events, or
       people from the real world." }, "Director": { "Name": "Steven Spielberg",
       "Bio": "Steven Allan Spielberg is an American filmmaker and the most
-      successful director in film history." }, "Actors": [], "_id":
+      successful director in film history.", "Birthyear":
+      "1946-12-18T05:00:00.000Z"}, "Actors": [], "_id":
       "66b90f36cd0e090e39228fb5", "Title": "Hook", "Description": "When his
       young children are abducted by his old nemesis, Captain Hook, middle-aged
-      lawyer Peter Banning must return to his magical origins as Peter Pan.",
-      "LeadActor": "Robin Williams" },
+      lawyer Peter Banning must return to his magical origins as Peter Pan."},
+      ... ]
     </p>
     <h3>Return movie data: get '/movies/:title'</h3>
     <p>
@@ -33,11 +34,11 @@
       often set in an imaginary universt without any locations, events, or
       people from the real world." }, "Director": { "Name": "Steven Spielberg",
       "Bio": "Steven Allan Spielberg is an American filmmaker and the most
-      successful director in film history." }, "Actors": [], "_id":
+      successful director in film history.", "Birthyear":
+      "1946-12-18T05:00:00.000Z"}, "Actors": [], "_id":
       "66b90f36cd0e090e39228fb5", "Title": "Hook", "Description": "When his
       young children are abducted by his old nemesis, Captain Hook, middle-aged
-      lawyer Peter Banning must return to his magical origins as Peter Pan.",
-      "LeadActor": "Robin Williams" }
+      lawyer Peter Banning must return to his magical origins as Peter Pan."}
     </p>
     <h3>Return details about a genre: get '/genres/:genre'</h3>
     <p>
@@ -57,7 +58,8 @@
       This endpoint uses GET to return all the movies with a specified director.
       <br />
       The URL requires the director's name, but there is no expected data in the
-      request body. <br /><br />
+      request body. The response will only include a death year is the director
+      is dead! <br /><br />
       Example response: {"_id": "66c788063e6f4ea514228fb8", "Name": "Rob
       Reiner", "Bio": "Robert Reiner is an American actor, film director,
       screenwriter, and producer. He made his directorial film debut with heavy
@@ -65,7 +67,7 @@
       directing romantic comedy 'The Sure Thing', coming of age drama 'Stand by
       Me', and fantasy adventure 'The Princess Bride'. He has earned nominations
       for four Golden Globe Awards for Best Director, and for three Directors
-      Guild of America Awards." }
+      Guild of America Awards.", "Birthyear": "1947-03-06T05:00:00.000Z" }
     </p>
     <h3>Allow user registration: post '/users' request json</h3>
     <p>

@@ -11,7 +11,8 @@
       This endpoint uses GET to return a json with all the movies in this API
       and some data about them. <br />
       There are no parameters in the url, and no data expected in the request
-      body. <br />
+      body. The response will only include a death year for the director if the
+      director is dead!<br />
       <br />
       Example response: [{ "Genre": { "Name": "Fantasy", "Description": "A genre
       often set in an imaginary universt without any locations, events, or
@@ -29,7 +30,8 @@
       This endpoint uses GET to return a json with data about a specific movie.
       <br />
       It requires the name of the requested movie in the url, but there is no
-      expected data in the request body. <br /><br />
+      expected data in the request body. The response will only include a death
+      year for the director if the director is dead! <br /><br />
       Example response: { "Genre": { "Name": "Fantasy", "Description": "A genre
       often set in an imaginary universt without any locations, events, or
       people from the real world." }, "Director": { "Name": "Steven Spielberg",
@@ -58,7 +60,7 @@
       This endpoint uses GET to return all the movies with a specified director.
       <br />
       The URL requires the director's name, but there is no expected data in the
-      request body. The response will only include a death year is the director
+      request body. The response will only include a death year if the director
       is dead! <br /><br />
       Example response: {"_id": "66c788063e6f4ea514228fb8", "Name": "Rob
       Reiner", "Bio": "Robert Reiner is an American actor, film director,

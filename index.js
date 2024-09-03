@@ -121,33 +121,40 @@ app.get("/users/:Username", async (req, res) => {
 });
 
 //PUT to update a user's info, by username
-app.put("/users/:Username", async (req, res) => {
-  await Users.findOneAndUpdate(
-    { Username: req.params.Username },
-    {
-      $set: {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday,
+app.put(
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    if (req.user.username !== req.params.Username) {
+      return res.status(400).send("Permission Denied");
+    }
+    await Users.findOneAndUpdate(
+      { Username: req.params.Username },
+      {
+        $set: {
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        },
       },
-    },
-    { new: true }
-  )
-    .then((updatedUser) => {
-      if (!updatedUser) {
-        return res
-          .status(400)
-          .send("User " + req.params.Username + " does not exist.");
-      } else {
-        res.json(updatedUser);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+      { new: true }
+    )
+      .then((updatedUser) => {
+        if (!updatedUser) {
+          return res
+            .status(400)
+            .send("User " + req.params.Username + " does not exist.");
+        } else {
+          res.json(updatedUser);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //POST a movie to a user's favorites list
 app.post("/users/:Username/movies/:movieID", async (req, res) => {

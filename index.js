@@ -1,3 +1,5 @@
+const passport = require("passport");
+
 const express = require("express"),
   morgan = require("morgan"),
   uuid = require("uuid"),
@@ -18,6 +20,11 @@ mongoose.connect("mongodb://localhost:27017/test", {
 });
 
 app.use(morgan("common"));
+
+let auth = require("./auth")(app);
+
+const passport = require("passport");
+require("./passport.js");
 
 // GET a list of movies
 app.get("/movies", async (req, res) => {

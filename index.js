@@ -23,20 +23,23 @@ app.use(morgan("common"));
 
 let auth = require("./auth")(app);
 
-const passport = require("passport");
 require("./passport.js");
 
 // GET a list of movies
-app.get("/movies", async (req, res) => {
-  await Movies.find()
-    .then((movie) => {
-      res.status(201).json(movie);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Movies.find()
+      .then((movie) => {
+        res.status(201).json(movie);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // GET details about a movie by title
 app.get("/movies/:Title", async (req, res) => {

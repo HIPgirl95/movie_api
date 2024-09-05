@@ -7,7 +7,8 @@ const express = require("express"),
   mongoose = require("mongoose"),
   Models = require("./models.js"),
   Movies = Models.Movie,
-  Users = Models.User;
+  Users = Models.User,
+  cors = require("cors");
 // Genres = Models.Genre,
 // Directors = Models.Director;
 const app = express();
@@ -20,6 +21,7 @@ mongoose.connect("mongodb://localhost:27017/test", {
 });
 
 app.use(morgan("common"));
+app.use(cors());
 
 let auth = require("./auth")(app);
 

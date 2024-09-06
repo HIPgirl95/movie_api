@@ -11,6 +11,9 @@ const express = require("express"),
   cors = require("cors");
 // Genres = Models.Genre,
 // Directors = Models.Director;
+
+const { check, validationResult } = require("express-validator");
+
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
@@ -105,28 +108,40 @@ app.get(
 );
 
 // POST new user
-app.post("/users", async (req, res) => {
-  let hashedPassword = Users.hashPassword(req.body.Password);
-  await Users.findOne({ Username: req.body.Username }).then((user) => {
-    if (user) {
-      return res.status(400).send(req.body.Username + " already exists.");
-    } else {
-      Users.create({
-        Username: req.body.Username,
-        Password: hashedPassword,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday,
-      })
-        .then((user) => {
-          res.status(201).json(user);
+app.post(
+  "/users",
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Passoword", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid.").isEmail(),
+  ],
+  async (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    await Users.findOne({ Username: req.body.Username }).then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + " already exists.");
+      } else {
+        Users.create({
+          Username: req.body.Username,
+          Password: hashedPassword,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
         })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send("Error: " + error);
-        });
-    }
-  });
-});
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    });
+  }
+);
 
 // GET all users
 app.get(

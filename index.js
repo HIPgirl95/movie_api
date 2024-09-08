@@ -4,7 +4,6 @@ const express = require("express"),
   morgan = require("morgan"),
   uuid = require("uuid"),
   bodyParser = require("body-parser"),
-  mongoose = require("mongoose"),
   Models = require("./models.js"),
   Movies = Models.Movie,
   Users = Models.User,
@@ -17,6 +16,8 @@ const { check, validationResult } = require("express-validator");
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
+
+const mongoose = require("mongoose");
 
 // mongoose.connect("mongodb://localhost:27017/test", {
 //   useNewUrlParser: true,

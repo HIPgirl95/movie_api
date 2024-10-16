@@ -290,18 +290,18 @@ app.delete(
 
 //DELETE a user by username
 app.delete(
-  "/users/:user_id",
+  "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    if (req.user._id !== req.params.user_id) {
-      return res.status(401).send("Permission Denied");
+    if (req.user.Username !== req.params.Username) {
+      return res.status(400).send("Permission Denied");
     }
-    await Users.findOneAndDelete({ _id: req.params.user_id })
+    await Users.findOneAndDelete({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
-          res.status(400).send("User was not found.");
+          res.status(400).send(req.params.Username + " was not found.");
         } else {
-          res.status(200).send(req.user.Username + "'s account is deleted.");
+          res.status(200).send(req.params.Username + " was deleted.");
         }
       })
       .catch((err) => {

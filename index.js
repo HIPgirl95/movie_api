@@ -293,7 +293,7 @@ app.delete(
   "/users/:user_id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    if (req.user.user_id !== req.params.user_id) {
+    if (req.user._id !== req.params.user_id) {
       return res.status(401).send("Permission Denied");
     }
     await Users.findOneAndDelete({ _id: req.params.user_id })

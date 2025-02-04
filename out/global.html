@@ -104,7 +104,408 @@
     
 
     
-    <h4 class="name" id="GETdirectors/:Name"><span class="type-signature"></span>GET directors/:Name<span class="signature">()</span><span class="type-signature"> &rarr; {object|string}</span></h4>
+    <h4 class="name" id="DELETEusers/:Username"><span class="type-signature"></span>DELETE users/:Username<span class="signature">()</span><span class="type-signature"> &rarr; {string|string|object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    removes a user's account
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.Username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">user's Username</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line377">line 377</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - if the user was removed successfully
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    400 - if the user could not be found
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Server error message.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="DELETEusers/:Username/movies/:movieID"><span class="type-signature"></span>DELETE users/:Username/movies/:movieID<span class="signature">()</span><span class="type-signature"> &rarr; {Object|object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    removes a movie from a user's favorites list
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.Username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">user's Username</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.movieID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">movie._id for the movie to be removed</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line343">line 343</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The updated user object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Server error message.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="GETdirectors/:Name"><span class="type-signature"></span>GET directors/:Name<span class="signature">()</span><span class="type-signature"> &rarr; {object|object}</span></h4>
     
 
     
@@ -265,7 +666,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -283,7 +684,7 @@
     
 
     
-    <h4 class="name" id="GETgenres/:genre"><span class="type-signature"></span>GET genres/:genre<span class="signature">()</span><span class="type-signature"> &rarr; {object|string}</span></h4>
+    <h4 class="name" id="GETgenres/:genre"><span class="type-signature"></span>GET genres/:genre<span class="signature">()</span><span class="type-signature"> &rarr; {object|object}</span></h4>
     
 
     
@@ -444,7 +845,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -462,7 +863,7 @@
     
 
     
-    <h4 class="name" id="GETmovies"><span class="type-signature"></span>GET movies<span class="signature">()</span><span class="type-signature"> &rarr; {object|string}</span></h4>
+    <h4 class="name" id="GETmovies"><span class="type-signature"></span>GET movies<span class="signature">()</span><span class="type-signature"> &rarr; {object|object}</span></h4>
     
 
     
@@ -574,7 +975,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -592,7 +993,7 @@
     
 
     
-    <h4 class="name" id="GETmovies/:Title"><span class="type-signature"></span>GET movies/:Title<span class="signature">()</span><span class="type-signature"> &rarr; {object|string}</span></h4>
+    <h4 class="name" id="GETmovies/:Title"><span class="type-signature"></span>GET movies/:Title<span class="signature">()</span><span class="type-signature"> &rarr; {object|object}</span></h4>
     
 
     
@@ -753,7 +1154,186 @@
     </dt>
     <dd>
         
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="GETusers/:Username"><span class="type-signature"></span>GET users/:Username<span class="signature">()</span><span class="type-signature"> &rarr; {object|object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Retrieves details of a user by username
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.Username</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">user's Username</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    returns the user's details as an object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - error message if user not found
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
 
 
     </dd>
@@ -918,7 +1498,7 @@
             <td class="type">
             
                 
-<span class="param-type">Email</span>
+<span class="param-type">string</span>
 
 
             
@@ -1090,6 +1670,563 @@
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="POSTusers/:Username/movies/:movieID"><span class="type-signature"></span>POST users/:Username/movies/:movieID<span class="signature">()</span><span class="type-signature"> &rarr; {Object|object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    adds a movie to a user's favorites list
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.Username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">user's Username</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.movieID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">movie._id for the movie to be added</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line309">line 309</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The updated user object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Server error message.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="PUTusers/:Username"><span class="type-signature"></span>PUT users/:Username<span class="signature">()</span><span class="type-signature"> &rarr; {Object|Object|Object|Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    updates a user's information
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.Username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">user's Username</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.Username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">(username must be at least 5 characters, alphanumerical)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.Password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">(password is required)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.Birthday</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">(optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.Email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">(email must be a valid email format)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line243">line 243</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The updated user object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    400 - Permission denied or user not found.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    422 - Validation errors if input does not meet criteria.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Server error message.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+
+        
     
 
     
@@ -1105,13 +2242,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#GETdirectors/:Name">GET directors/:Name</a></li><li><a href="global.html#GETgenres/:genre">GET genres/:genre</a></li><li><a href="global.html#GETmovies">GET movies</a></li><li><a href="global.html#GETmovies/:Title">GET movies/:Title</a></li><li><a href="global.html#POSTusers">POST users</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DELETEusers/:Username">DELETE users/:Username</a></li><li><a href="global.html#DELETEusers/:Username/movies/:movieID">DELETE users/:Username/movies/:movieID</a></li><li><a href="global.html#GETdirectors/:Name">GET directors/:Name</a></li><li><a href="global.html#GETgenres/:genre">GET genres/:genre</a></li><li><a href="global.html#GETmovies">GET movies</a></li><li><a href="global.html#GETmovies/:Title">GET movies/:Title</a></li><li><a href="global.html#GETusers/:Username">GET users/:Username</a></li><li><a href="global.html#POSTusers">POST users</a></li><li><a href="global.html#POSTusers/:Username/movies/:movieID">POST users/:Username/movies/:movieID</a></li><li><a href="global.html#PUTusers/:Username">PUT users/:Username</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Feb 04 2025 16:30:16 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Feb 04 2025 17:29:48 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

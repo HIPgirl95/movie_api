@@ -53,7 +53,7 @@ require("./passport.js");
  *@description Retrieves all movies
  *@access protected (JWT authentication required)
  *@returns {object} 201 - the movies if found
- *@returns {string} 500 - error message if movies not found
+ *@returns {object} 500 - error message if movies not found
  */
 // GET a list of movies
 app.get(
@@ -77,7 +77,7 @@ app.get(
  *@access protected (JWT authentication required)
  *@param {string} req.params.Title -name of movie Title
  *@returns {object} 201 - the movie details if found
- *@returns {string} 500 - error message if details not found
+ *@returns {object} 500 - error message if details not found
  */
 //GET movie by title
 app.get(
@@ -101,7 +101,7 @@ app.get(
  * @access protected (JWT authentication required)
  * @param {string} req.params.genre - the name of the genre to retrieve
  * @returns {object} 200 - the genre details if found
- * @returns {string} 404 - error message if no genre is found
+ * @returns {object} 404 - error message if no genre is found
  */
 // GET info about a specified genre
 app.get(
@@ -123,7 +123,7 @@ app.get(
  *@access protected (JWT authentication required)
  *@param {string} req.params.Name - name of the director
  *@returns {object} 200 - the director details if found
- *@returns {string} 404 - error message if details not found
+ *@returns {object} 404 - error message if details not found
  */
 // GET info about directors
 app.get(
@@ -146,7 +146,7 @@ app.get(
  *@param {string} req.body.Username (username must be at least 5 characters, alphanumerical)
  *@param {string} req.body.Password (password is required)
  *@param {Date} [req.body.Birthday] (optional)
- *@param {Email} req.body.Email (email must be a valid email format)
+ *@param {string} req.body.Email (email must be a valid email format)
  *@returns {Object} 201 - The created user object.
  *@returns {Object} 400 - Error message if the username already exists.
  *@returns {Object} 422 - Validation errors if input does not meet criteria.
@@ -194,12 +194,11 @@ app.post(
 );
 
 /**
- *@route GET directors/:Name
- *@description Retrieves details of a specific director by name
+ *@route GET a list of users
+ *@description Retrieves details about all users
  *@access protected (JWT authentication required)
- *@param {string} req.params.Name - name of the director
- *@returns {object} 200 - the director details if found
- *@returns {string} 404 - error message if details not found
+ *@returns {object} 201 - the details of all users if found
+ *@returns {object} 500 - error message if details not found
  */
 // GET all users
 app.get(
@@ -217,6 +216,14 @@ app.get(
   }
 );
 
+/**
+ *@function GET users/:Username
+ *@description Retrieves details of a user by username
+ *@access protected (JWT authentication required)
+ *@param {string} req.params.Username - user's Username
+ *@returns {object} returns the user's details as an object
+ *@returns {object} 500 - error message if user not found
+ */
 //GET a user by username
 app.get(
   "/users/:Username",
@@ -233,6 +240,20 @@ app.get(
   }
 );
 
+/**
+ *@function PUT users/:Username
+ *@description updates a user's information
+ *@access protected (JWT authentication required)
+ *@param {string} req.params.Username - user's Username
+ *@param {string} req.body.Username (username must be at least 5 characters, alphanumerical)
+ *@param {string} req.body.Password (password is required)
+ *@param {Date} [req.body.Birthday] (optional)
+ *@param {string} req.body.Email (email must be a valid email format)
+ *@returns {Object} 200 - The updated user object.
+ *@returns {Object} 400 - Permission denied or user not found.
+ *@returns {Object} 422 - Validation errors if input does not meet criteria.
+ *@returns {Object} 500 - Server error message.
+ */
 //PUT to update a user's info, by username
 app.put(
   "/users/:Username",
@@ -285,6 +306,15 @@ app.put(
   }
 );
 
+/**
+ *@function POST users/:Username/movies/:movieID
+ *@description adds a movie to a user's favorites list
+ *@access protected (JWT authentication required)
+ *@param {string} req.params.Username - user's Username
+ *@param {string} req.params.movieID movie._id for the movie to be added
+ *@returns {Object} 200 - The updated user object.
+ *@returns {object} 500 - Server error message.
+ */
 //POST a movie to a user's favorites list
 app.post(
   "/users/:Username/movies/:movieID",
@@ -310,6 +340,15 @@ app.post(
   }
 );
 
+/**
+ *@function DELETE users/:Username/movies/:movieID
+ *@description removes a movie from a user's favorites list
+ *@access protected (JWT authentication required)
+ *@param {string} req.params.Username - user's Username
+ *@param {string} req.params.movieID movie._id for the movie to be removed
+ *@returns {Object} 200 - The updated user object.
+ *@returns {object} 500 - Server error message.
+ */
 //DELETE a movie from a user's favorites list
 app.delete(
   "/users/:Username/movies/:movieID",
@@ -335,6 +374,15 @@ app.delete(
   }
 );
 
+/**
+ *@function DELETE users/:Username
+ *@description removes a user's account
+ *@access protected (JWT authentication required)
+ *@param {string} req.params.Username - user's Username
+ *@returns {string} 200 - if the user was removed successfully
+ *@returns {string} 400 - if the user could not be found
+ *@returns {object} 500 - Server error message.
+ */
 //DELETE a user by username
 app.delete(
   "/users/:Username",

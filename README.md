@@ -68,7 +68,7 @@ This API uses JWT (JSON Web Token) for authentication. To access protected route
 
 Example:
 ```bash
-Authorization: Bearer <your-token>
+Authorization: Bearer <your-token> ```
 
 To generate a JWT, you must first register or log in via the user endpoints and retrieve your token.
 

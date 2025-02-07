@@ -67,8 +67,8 @@ To set up and run the project locally, follow these steps:
 This API uses JWT (JSON Web Token) for authentication. To access protected routes, you need to include a valid JWT token in the `Authorization` header of your request.
 
 Example:
-```bash
-Authorization: Bearer <your-token> ```
+
+Authorization: Bearer < your-token >
 
 To generate a JWT, you must first register or log in via the user endpoints and retrieve your token.
 

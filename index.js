@@ -1,5 +1,12 @@
 const passport = require("passport");
 
+const {
+  S3Client,
+  ListBucketsCommand,
+  ListObjectsV2Command,
+  PutObjectCommand,
+} = require("@aws-sdk/client-s3");
+
 const express = require("express"),
   morgan = require("morgan"),
   uuid = require("uuid"),
@@ -7,15 +14,28 @@ const express = require("express"),
   Models = require("./models.js"),
   Movies = Models.Movie,
   Users = Models.User,
-  cors = require("cors");
+  cors = require("cors"),
+  multer = require("multer"),
+  fs = require("fs"),
+  path = require("path");
 // Genres = Models.Genre,
 // Directors = Models.Director;
 
+const s3 = new S3Client({
+  endpoint: "http://localhost:4566",
+  s3ForcePathStyle: true,
+  region: "us-east-1",
+});
+
 const { check, validationResult } = require("express-validator");
 
+require("dotenv").config();
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
+
+const bucket = process.env.AWS_BUCKET;
+const upload = multer({ dest: "original-images" });
 
 const mongoose = require("mongoose");
 
@@ -25,28 +45,93 @@ mongoose.connect(process.env.CONNECTION_URI, {
 });
 
 app.use(morgan("common"));
-app.use(cors());
+// Define allowed origins
+const allowedOrigins = [
+  "http://localhost:1234", // Local dev
+  "http://myflix-client-hhogan.s3-website-us-east-1.amazonaws.com/", // Static site
+];
 
-// let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+// Configure CORS
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
 
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin) return callback(null, true);
-//       if (allowedOrigins.indexOf(origin) === -1) {
-//         let message =
-//           "The CORS policy for this application doesn't allow access from origin " +
-//           origin;
-//         return callback(new Error(message), false);
-//       }
-//       return callback(null, true);
-//     },
-//   })
-// );
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true, // Include cookies, authorization headers, etc.
+};
+
+// Use it globally
+app.use(cors(corsOptions));
+
+// Optional: Handle preflight requests for all routes
+app.options("*", cors(corsOptions));
 
 let auth = require("./auth")(app);
 
 require("./passport.js");
+
+//list files in s3 bucket
+app.get(
+  "/images",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const listObjectsParams = {
+      Bucket: bucket,
+    };
+    listObjectsCmd = new ListObjectsV2Command(listObjectsParams);
+    const response = await s3.send(listObjectsCmd);
+
+    const imageFiles = (response.Contents || [])
+      .filter((file) => /\.(jpg|jpeg|png|gif)$/i.test(file.Key))
+      .map((file) => file.Key); // Return an array of filenames
+
+    // Send the array of filenames as JSON
+    res.json(imageFiles);
+  }
+);
+
+//create images
+app.post(
+  "/images",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const file = req.file;
+
+      if (!file) {
+        return res.status(400).send("No file uploaded.");
+      }
+
+      const fileStream = fs.createReadStream(file.path);
+
+      fileStream.on("error", (err) => {
+        console.error("Stream error:", err);
+        return res.status(500).send("File ftream error");
+      });
+
+      console.log(file);
+      const uploadParams = {
+        Bucket: bucket,
+        Key: file.originalname,
+        Body: fileStream,
+        ContentType: file.mimetype, // Preserve file type
+      };
+      const response = await s3.send(new PutObjectCommand(uploadParams));
+      res.send(response);
+    } catch (err) {
+      console.error("Upload failed:", err);
+      res.status(500).send("Upload Failed.");
+    }
+  }
+);
 
 /**
  *@function GET movies

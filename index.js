@@ -114,7 +114,7 @@ app.post(
 
       fileStream.on("error", (err) => {
         console.error("Stream error:", err);
-        return res.status(500).send("File ftream error");
+        return res.status(500).send("File stream error");
       });
 
       console.log(file);

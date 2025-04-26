@@ -104,6 +104,7 @@ app.post(
   upload.single("image"),
   async (req, res) => {
     try {
+      console.log("Bucket name: ", bucket);
       const file = req.file;
 
       if (!file) {
